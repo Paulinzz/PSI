@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recomendações</title>
+</head>
+<body>
+    <h1>Filmes Recomendados</h1>
+    
+    {% if filmes %}
+        <h3>Gênero: {{ genero|capitalize }}</h3>
+        <ul>
+            {% for filme in filmes %}
+                <li>{{ filme }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Nenhum filme encontrado para o gênero "{{ genero|capitalize }}"</p>
+    {% endif %}
+    
+    <p>Experimente outros gêneros:</p>
+    <ul>
+        <li><a href="{{ url_for('recomendar') }}?genero=acao">Ação</a></li>
+        <li><a href="{{ url_for('recomendar') }}?genero=comedia">Comédia</a></li>
+        <li><a href="{{ url_for('recomendar') }}?genero=drama">Drama</a></li>
+        <li><a href="{{ url_for('recomendar') }}?genero=ficcao">Ficção Científica</a></li>
+        <li><a href="{{ url_for('recomendar') }}?genero=terror">Terror</a></li>
+    </ul>
+    
+    <p><a href="{{ url_for('index') }}">Voltar para início</a></p>
+</body>
+</html>

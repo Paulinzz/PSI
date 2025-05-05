@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Preferências Salvas</title>
+</head>
+<body>
+    <h1>Suas Preferências</h1>
+    
+    {% if nome %}
+        <p>Nome: {{ nome }}</p>
+        <p>Gênero favorito: {{ genero|capitalize }}</p>
+        <p>Notificações por e-mail: {{ notificacoes }}</p>
+        
+        <h3>Recomendações para seu gênero:</h3>
+        <a href="{{ url_for('recomendar') }}?genero={{ genero }}">
+            Ver filmes recomendados
+        </a>
+    {% else %}
+        <p>Nenhuma preferência encontrada.</p>
+        <a href="{{ url_for('cadastro') }}">Cadastrar preferências</a>
+    {% endif %}
+    
+    <p><a href="{{ url_for('index') }}">Voltar para início</a></p>
+</body>
+</html>     

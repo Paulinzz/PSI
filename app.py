@@ -1,41 +1,58 @@
-from flask import Flask, render_template, request, make_response, url_for, redirect
+from flask import Flask, render_template, request, redirect, url_for, make_response
 
 app = Flask(__name__)
 
-preferencias_usuarios = {}
+# Dicionário fixo de recomendações por gênero
+FILMES_POR_GENERO = {
+    'acao': ['Missão Impossível', 'John Wick', 'Mad Max: Estrada da Fúria'],
+    'comedia': ['Se Beber, Não Case', 'As Branquelas', 'Debi & Lóide'],
+    'drama': ['Cidadão Kane', 'O Poderoso Chefão', 'Forrest Gump'],
+    'ficcao': ['Blade Runner 2049', 'Interestelar', 'Matrix'],
+    'terror': ['Hereditário', 'O Exorcista', 'Corra!']
+}
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/cadastrar', methods=['GET', 'POST'])
-def cadastrar():
+@app.route('/cadastro', methods=['GET', 'POST'])
+def cadastro():
     if request.method == 'POST':
         nome = request.form.get('nome')
         genero = request.form.get('genero')
-        ano = request.form.get('ano')
-        diretor = request.form.get('diretor')
+        notificacoes = 'Sim' if request.form.get('notificacoes_email') else 'Não'
         
-        preferencias_usuarios = {
-            'genero': genero,
-            'ano': ano,
-            'diretor': diretor
-        }
-        response = make_response(redirect(url_for('ver')))
-        response = set.cookie('ultimo_usuario', nome)
+        # Criar resposta de redirecionamento
+        response = make_response(redirect(url_for('ver_preferencias')))
+        
+        # Configurar cookies com validade de 7 dias
+        response.set_cookie('nome_usuario', nome, max_age=604800)
+        response.set_cookie('genero', genero, max_age=604800)
+        response.set_cookie('notificacoes_email', notificacoes, max_age=604800)
+        
         return response
-
+    
     return render_template('cadastrar.html')
 
-@app.route('/ver')
-def ver():
-    nome = request.cookies.get('ultima_usuario') or request.args.get('nome')
+@app.route('/preferencias')
+def ver_preferencias():
+    # Recuperar dados dos cookies
+    nome = request.cookies.get('nome_usuario')
+    genero = request.cookies.get('genero')
+    notificacoes = request.cookies.get('notificacoes_email')
     
-    if nome in preferencias_usuarios:
-        preferencias = preferencias_usuarios[nome]
-        return render_template('ver.html', nome=nome, preferencias=preferencias)
-    else:
-        return render_template('ver.html', nome=None)
+    if nome:
+        return render_template('preferencias.html',
+                             nome=nome,
+                             genero=genero,
+                             notificacoes=notificacoes)
+    return render_template('preferencias.html', nome=None)
+
+@app.route('/recomendar')
+def recomendar():
+    genero = request.args.get('genero', '').lower()
+    filmes = FILMES_POR_GENERO.get(genero, [])
+    return render_template('recomendar.html', genero=genero, filmes=filmes)
 
 if __name__ == '__main__':
     app.run(debug=True)
