@@ -5,7 +5,7 @@ app = Flask(__name__)
 preferencias_usuarios = {}
 
 @app.route('/', methods=['GET', 'POST'])
-def pag_inicial():
+def index():
     return render_template('index.html')
 
 @app.route('/cadastrar', methods=['GET', 'POST'])
