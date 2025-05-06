@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, redirect, url_for, make_respo
 
 app = Flask(__name__)
 
-# Dicionário fixo de recomendações por gênero
 FILMES_POR_GENERO = {
     'acao': ['Missão Impossível', 'John Wick', 'Mad Max: Estrada da Fúria'],
     'comedia': ['Se Beber, Não Case', 'As Branquelas', 'Debi & Lóide'],
@@ -22,10 +21,8 @@ def cadastro():
         genero = request.form.get('genero')
         notificacoes = 'Sim' if request.form.get('notificacoes_email') else 'Não'
         
-        # Criar resposta de redirecionamento
         response = make_response(redirect(url_for('ver_preferencias')))
         
-        # Configurar cookies com validade de 7 dias
         response.set_cookie('nome_usuario', nome, max_age=604800)
         response.set_cookie('genero', genero, max_age=604800)
         response.set_cookie('notificacoes_email', notificacoes, max_age=604800)
@@ -36,7 +33,6 @@ def cadastro():
 
 @app.route('/preferencias')
 def ver_preferencias():
-    # Recuperar dados dos cookies
     nome = request.cookies.get('nome_usuario')
     genero = request.cookies.get('genero')
     notificacoes = request.cookies.get('notificacoes_email')
