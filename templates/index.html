@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filmes</title>
+
+    <style>
+        a {
+            display: block;
+            border: 1px solid darkgray;
+            background-color: darkblue;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            margin: 5px 0;
+            padding: 8px;
+        }
+
+        .flash-message {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+
+        .flash-message.success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .flash-message.error,
+        .flash-message.danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .flash-message.info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .flash-message.warning {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .user-status {
+            margin: 10px 0;
+            font-weight: bold;
+        }
+    </style>
+
+</head>
+<body>
+    <h1>Filmes</h1>
+
+    <div class="flash-messages">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    {% if current_user.is_authenticated %}
+        <p class="user-status">Olá, {{ current_user.id }}!</p>
+        <a href="{{ url_for('cadastro_preferencias') }}">Cadastrar Preferências</a>
+        <a href="{{ url_for('ver_cadastros') }}">Ver Minhas Preferências</a>
+        <a href="{{ url_for('ver_carrinho') }}">Ver Carrinho</a>
+        <a href="{{ url_for('logout') }}" class="secondary-button">Sair</a>
+    {% else %}
+        <a href="{{ url_for('cadastro_usuario') }}">Cadastrar Usuário</a>
+        <a href="{{ url_for('login') }}">Fazer Login</a>
+        <a href="{{ url_for('cadastro_preferencias') }}" class="secondary-button">Cadastrar Preferências (requer login)</a>
+        <a href="{{ url_for('ver_cadastros') }}" class="secondary-button">Ver Preferências (requer login)</a>
+    {% endif %}
+</body>
+</html>

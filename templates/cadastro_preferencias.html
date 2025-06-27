@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Preferências</title>
+
+</head>
+<body>
+
+    <h1>Cadastro de Preferências</h1>
+
+    <div class="flash-messages">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <form action="{{ url_for('cadastro_preferencias') }}" method="POST">
+        <input type="text" name="nome" placeholder="Nome" required>
+        <select name="genero" id="genero">
+            <option value="acao">Ação</option>
+            <option value="drama">Drama</option>
+            <option value="sifi">Ficção Científica</option>
+            <option value="comedia">Comédia</option>
+            <option value="romance">Romance</option>
+            <option value="terror">Terror</option>
+            <option value="documentario">Documentário</option>
+            <option value="animacao">Animação</option>
+        </select>
+        <button type="submit">Cadastrar</button>
+    </form>
+
+    <br>
+    <br>
+
+    <a href="{{url_for('index')}}">Voltar ao início</a>
+
+</body>
+</html>

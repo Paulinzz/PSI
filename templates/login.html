@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+</head>
+<body>
+
+    <h1>Login</h1>
+    <div class="flash-messages">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+    <form method="post">
+        <label for="usuario">Usuário</label>
+        <input type="text" name="usuario" placeholder="usuario" required>
+        <label for="senha">Senha:</label>
+        <input type="password" name="senha" placeholder="senha" required>
+        <button type="submit">Entrar</button>
+    </form>
+    <br>
+    <br>
+    <a href="{{url_for('index')}}">Voltar ao início</a>
+</body>
+</html>

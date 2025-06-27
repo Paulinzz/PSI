@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Cadastros</title>
+
+</head>
+<body>
+
+    <h1>Registros de Preferências</h1>
+
+    <div class="container">
+        {% if cadastros %}
+            <ul>
+                {% for cadastro in cadastros %}
+                    <li>
+                        <span class="registration-info">
+                            <strong>Nome:</strong> {{ cadastro.nome }}, <strong>Gênero:</strong> {{ cadastro.genero }}
+                        </span>
+                        <form action="{{ url_for('remover_cadastro', nome_para_remover=cadastro.nome) }}" method="POST" class="remove-form">
+                            <button type="submit" class="remove-button">Remover</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="no-registrations">Nenhum cadastro de preferência encontrado.</p>
+        {% endif %}
+    </div>
+
+    <a href="{{ url_for('index') }}">Voltar ao início</a>
+
+</body>
+</html>

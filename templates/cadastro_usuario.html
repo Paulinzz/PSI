@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Usuário</title>
+
+</head>
+<body>
+
+    <h1>Cadastro de Usuário</h1>
+    <div class="flash-messages">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+    <form method="post" action="{{ url_for('cadastro_usuario') }}">
+        <label for="usuario">Novo Usuário:</label>
+        <input type="text" name="usuario" placeholder="Nome de usuário" required>
+        <label for="senha">Senha:</label>
+        <input type="password" name="senha" placeholder="Senha" required>
+        <button type="submit">Cadastrar</button>
+    </form>
+    <br>
+    <br>
+    <a href="{{url_for('login')}}">Voltar para o Login</a>
+</body>
+</html>

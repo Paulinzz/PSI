@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho de Compras</title>
+</head>
+<body>
+    <h1>Seu Carrinho</h1>
+
+    <div class="flash-messages">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    {% if carrinho %}
+        <ul>
+            {% for item in carrinho %}
+                <li>
+                    Produto {{ item.produto_id }} - Quantidade: {{ item.quantidade }}
+                </li>
+            {% endfor %}
+        </ul>
+        <form action="{{ url_for('finalizar_compra') }}" method="POST">
+            <button type="submit">Finalizar Compra</button>
+        </form>
+    {% else %}
+        <p>Seu carrinho está vazio.</p>
+    {% endif %}
+
+    <a href="{{ url_for('index') }}">Voltar ao início</a>
+</body>
+</html>
