@@ -1,0 +1,11 @@
+
+{% extends 'base.html' %}
+{% block conteudo %}
+<h2>Seu carrinho:</h2>
+<ul>
+    {% for item in itens %}
+        <li>{{ item }}</li>
+    {% endfor %}
+</ul>
+<p><a href="{{ url_for('loja') }}">Voltar à loja</a></p>
+{% endblock %}

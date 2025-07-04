@@ -1,0 +1,6 @@
+
+{% extends 'base.html' %}
+{% block conteudo %}
+<h2>Olá, {{ nome }}!</h2>
+<p><a href="{{ url_for('login') }}">Login</a> | <a href="{{ url_for('cadastro') }}">Cadastrar</a></p>
+{% endblock %}

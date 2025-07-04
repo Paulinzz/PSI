@@ -1,0 +1,15 @@
+
+{% extends 'base.html' %}
+{% block conteudo %}
+<h2>Minhas Tarefas</h2>
+<form method="post">
+  <input type="text" name="tarefa">
+  <button type="submit">Adicionar</button>
+</form>
+<ul>
+  {% for tarefa in tarefas %}
+    <li>{{ tarefa }} <a href="{{ url_for('remover', indice=loop.index0) }}">Remover</a></li>
+  {% endfor %}
+</ul>
+<p><a href="{{ url_for('logout') }}">Sair</a></p>
+{% endblock %}

@@ -1,0 +1,12 @@
+
+{% extends 'base.html' %}
+{% block conteudo %}
+<h2>Loja</h2>
+<ul>
+    <li><a href="{{ url_for('adicionar', item='Camiseta') }}">Camiseta</a></li>
+    <li><a href="{{ url_for('adicionar', item='Tênis') }}">Tênis</a></li>
+    <li><a href="{{ url_for('adicionar', item='Boné') }}">Boné</a></li>
+</ul>
+<p><a href="{{ url_for('carrinho') }}">Ver Carrinho</a></p>
+<p><a href="{{ url_for('logout') }}">Sair</a></p>
+{% endblock %}

@@ -1,0 +1,5 @@
+
+body { font-family: sans-serif; background: #f9f9f9; padding: 20px; }
+.success { color: green; }
+.danger { color: red; }
+.info { color: blue; }
