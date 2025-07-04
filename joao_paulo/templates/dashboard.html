@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Dashboard
+{% endblock %}
+
+{% block pagina %}
+    Dashboard
+{% endblock %}
+
+
+{% block conteudo %}
+
+    <style>
+        form{
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            margin: 20px;
+
+        }
+    </style>
+    
+
+    <h1>Oi, Sumido! </h1>
+    <br>
+
+    <h2>Formulario Para Eventos</h2>
+    
+    {% include "componentes/erro.html" %}
+
+    <form method="post">
+        Titulo:<input type="text" name="" > <br>
+        Descrição: <input type="text" name=""> <br>
+        Data: <input type="text" name="">
+        <button type="submit">Enviar</button>
+    </form>
+
+    <form action="{{url_for('logout')}}" method="POST">
+        <button>Sair</button>
+    </form>
+
+{% endblock %}
