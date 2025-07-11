@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Registro{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <h2 class="text-center mb-4">Criar Nova Conta</h2>
+    
+    <form method="POST" action="{{ url_for('register') }}">
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+            <div class="form-text">Seu email será usado para login</div>
+        </div>
+        
+        <div class="mb-3">
+            <label for="senha" class="form-label">Senha</label>
+            <input type="password" class="form-control" id="senha" name="senha" required>
+            <div class="form-text">Mínimo de 8 caracteres</div>
+        </div>
+        
+        <div class="mb-3">
+            <label for="confirmar_senha" class="form-label">Confirmar Senha</label>
+            <input type="password" class="form-control" id="confirmar_senha" name="confirmar_senha" required>
+        </div>
+        
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="termos" required>
+            <label class="form-check-label" for="termos">
+                Concordo com os <a href="#">Termos de Serviço</a>
+            </label>
+        </div>
+        
+        <button type="submit" class="btn btn-success w-100">Criar Conta</button>
+    </form>
+    
+    <div class="mt-4 text-center">
+        <p>Já tem uma conta? <a href="{{ url_for('login') }}">Faça login aqui</a></p>
+    </div>
+</div>
+{% endblock %}

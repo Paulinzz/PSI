@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Página Inicial{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <h1 class="mb-4">Bem-vindo ao Sistema de Autenticação</h1>
+    <p class="lead">Um sistema simples de login e registro com Flask</p>
+    
+    <div class="d-grid gap-2 col-md-6 mx-auto mt-5">
+        <a href="{{ url_for('login') }}" class="btn btn-primary btn-lg">Fazer Login</a>
+        <a href="{{ url_for('register') }}" class="btn btn-secondary btn-lg">Criar Conta</a>
+    </div>
+    
+    <div class="mt-5">
+        <h2>Sobre o Projeto</h2>
+        <p>Este sistema demonstra:</p>
+        <ul class="list-group mx-auto col-md-6">
+            <li class="list-group-item">Autenticação de usuários</li>
+            <li class="list-group-item">Registro com validação</li>
+            <li class="list-group-item">Sessões seguras</li>
+            <li class="list-group-item">Gerenciamento de contas</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
