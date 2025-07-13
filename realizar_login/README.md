@@ -1,0 +1,15 @@
+
+- criar ambiente
+- instalar pacotes (flask, flask-login)
+- rotas
+  - methods HTTP (post, get)
+- request
+- make_response
+- cookies e session (secret_key)
+- url_for
+- templates: extends,include e flash
+- flask_login
+  - LoginManager
+  - login_required
+  - login_user, logout_user
+  - @login_manager.load_user

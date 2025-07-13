@@ -17,6 +17,11 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 
+# Variáveis globais para armazenamento de dados
+usuarios = {}
+cadastros_registrados = []
+compras = {}
+
 # Carrega dados dos arquivos ou inicializa estruturas vazias
 def carregar_dados():
     global usuarios, cadastros_registrados, compras
@@ -69,6 +74,7 @@ def load_user(user_id):
     if user_id in usuarios:
         return User(user_id)
     return None
+
 @app.route('/')
 def index():
     try:
@@ -133,25 +139,42 @@ def cadastro_preferencias():
     flash(f'Cadastro de {nome} adicionado com sucesso!', 'success')
     return redirect(url_for('ver_cadastros'))
 
+@app.route('/ver_cadastros')
+@login_required
+def ver_cadastros():
+    # Filtra cadastros apenas do usuário atual
+    meus_cadastros = [cadastro for cadastro in cadastros_registrados 
+                      if cadastro.get('cadastrado_por') == current_user.id]
+    return render_template('ver_cadastros.html', cadastros=meus_cadastros)
+
 @app.route('/remover_cadastro/<string:nome_para_remover>', methods=['POST'])
 @login_required 
 def remover_cadastro(nome_para_remover):
     global cadastros_registrados
     
-    cadastros_registrados = [
-        cadastro for cadastro in cadastros_registrados
-        if not (cadastro['nome'] == nome_para_remover and cadastro.get('cadastrado_por') == current_user.id)
-    ]
+    # Remove apenas os cadastros do usuário atual com o nome especificado
+    novos_cadastros = []
+    removido = False
+    for cadastro in cadastros_registrados:
+        if cadastro['nome'] == nome_para_remover and cadastro.get('cadastrado_por') == current_user.id:
+            removido = True
+        else:
+            novos_cadastros.append(cadastro)
+    
+    cadastros_registrados = novos_cadastros
     salvar_preferencias()  # Salva no arquivo
-    flash(f'Cadastro(s) de "{nome_para_remover}" removido(s) com sucesso!', 'info')
+    
+    if removido:
+        flash(f'Cadastro(s) de "{nome_para_remover}" removido(s) com sucesso!', 'info')
+    else:
+        flash(f'Nenhum cadastro de "{nome_para_remover}" encontrado para remoção.', 'warning')
+    
     return redirect(url_for('ver_cadastros'))
 
-# Adiciona novas rotas para o carrinho de compras
-@app.route('/adicionar_carrinho', methods=['POST', 'GET'])
+# Rotas para o carrinho de compras
+@app.route('/adicionar_carrinho', methods=['POST'])
 @login_required
 def adicionar_carrinho():
-    if request.method == 'GET':
-        return redirect(url_for('index'))
     produto_id = request.form.get('produto_id')
     quantidade = int(request.form.get('quantidade', 1))
     
@@ -180,8 +203,7 @@ def adicionar_carrinho():
 @login_required
 def finalizar_compra():
     if current_user.id in compras and compras[current_user.id]:
-        # Aqui você normalmente processaria o pagamento
-        # Por enquanto, vamos apenas limpar o carrinho
+        # Limpa o carrinho
         compras[current_user.id] = []
         salvar_compras()
         flash('Compra finalizada com sucesso!', 'success')
@@ -189,7 +211,7 @@ def finalizar_compra():
         flash('Seu carrinho está vazio!', 'warning')
     return redirect(url_for('index'))
 
-@app.route('/carrinho', methods=['POST', 'GET'])
+@app.route('/carrinho')
 @login_required
 def ver_carrinho():
     carrinho = compras.get(current_user.id, [])
