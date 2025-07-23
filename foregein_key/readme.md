@@ -1,0 +1,1 @@
+ta errado tudo kkkk
