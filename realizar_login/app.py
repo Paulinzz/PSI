@@ -5,7 +5,7 @@ from database import obter_conexao
 
 login_manager = LoginManager() 
 app = Flask(__name__)
-app.secret_key = 'uma_chave_segura_aqui'  # Altere para uma chave segura
+app.secret_key = 'uma_chave_segura_aqui' 
 login_manager.init_app(app)
 
 @login_manager.user_loader
@@ -57,8 +57,8 @@ def register():
 @login_required
 def dash():
     return render_template('dashboard.html', 
-                           current_user=current_user,
-                           lista_usuarios=User.get_all())
+        current_user=current_user,
+        lista_usuarios=User.get_all())
 
 @app.route('/delete_user/<int:user_id>', methods=['POST'])
 @login_required
