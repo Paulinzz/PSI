@@ -31,3 +31,27 @@ body{
     
 }
 
+.container a:hover{
+    color: #0056b3;
+}
+
+h1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+form{
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    flex-direction: column;
+}

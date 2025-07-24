@@ -1,8 +1,10 @@
-from flask import Flask, render_template, url_for, request, flash, redirect
-from flask_login import LoginManager, login_required, login_user, logout_user, current_user
+from flask import Flask, render_template, url_for, request, flash, redirect # type: ignore
+from flask_login import LoginManager, login_required, login_user, logout_user, current_user  # type: ignore
 from modelos import User
 from database import obter_conexao
 
+
+# configurações do Flask e Flask-Login
 login_manager = LoginManager() 
 app = Flask(__name__)
 app.secret_key = 'uma_chave_segura_aqui' 
@@ -15,7 +17,6 @@ def load_user(user_id):
 @app.route('/')
 def index():
     return render_template('index.html')
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:

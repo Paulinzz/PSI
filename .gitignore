@@ -5,6 +5,8 @@ env/
 __pycache__/
 *.py[cod]
 *.pyo
+*.pyc
+
 
 # Arquivos do sistema
 .DS_Store
