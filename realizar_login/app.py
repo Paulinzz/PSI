@@ -76,6 +76,11 @@ def delete_user(user_id):
     flash('Usuário deletado com sucesso', 'success')
     return redirect(url_for('dash'))
 
+@app.route('/festas', methods=['POST'])
+@login_required
+def festas():
+    pass
+
 @app.route('/logout', methods=['POST'])
 @login_required
 def logout():

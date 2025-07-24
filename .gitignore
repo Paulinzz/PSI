@@ -1,16 +1,13 @@
-# Ambiente virtual
-env/
-
-# Arquivos temporários do Python
+# Ignorar arquivos e pastas Python
 __pycache__/
 *.py[cod]
-*.pyo
-*.pyc
-
-
-# Arquivos do sistema
+*$py.class
+env/
+venv/
+.vscode/
+*.log
+*.sqlite3
+*.db
 .DS_Store
 Thumbs.db
-
-# Arquivos de log
-*.log
+app.cpython-312.pyc
