@@ -66,5 +66,4 @@ Persistir dados mesmo com o servidor sendo reiniciado, **sem banco real**.
 - Entenda `@login_manager.user_loader` e a classe `UserMixin`.
 - Saiba gerar `requirements.txt`: `pip freeze > requirements.txt`
 
-Boa sorte! 🚀
 

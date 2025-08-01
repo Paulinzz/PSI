@@ -6,17 +6,41 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="" method="post">
-        <input type="text" name="name" placeholder="Nome">
-        <button>Enviar</button>
-    </form>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class=flashes>
+            {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
 
-    {% for usuario in lista %}
-        <p>
-            Olá {{ usuario.nome }}!<br>
-            Você está na lista de usuários.
-        </p>
-    {% endfor %}
+    {% if current_user.is_authenticated %}
+        <p>Olá {{ current_user.name }}!</p>
+        <p><a href="{{ url_for('logout') }}">Sair</a></p>
+        <form action="" method="post">
+            <input type="text" name="name" placeholder="Nome">
+            <button>Enviar</button>
+        </form>
+
+        <h2>Lista de Usuários:</h2>
+        {% if lista %}
+            <ul>
+            {% for usuario in lista %}
+                <li>
+                    Olá {{ usuario.nome }}! (ID: {{ usuario.id }})
+                </li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>Nenhum usuário na lista.</p>
+        {% endif %}
+    {% else %}
+        <p>Você não está logado.</p>
+        <p><a href="{{ url_for('login') }}">Entrar</a></p>
+        <p><a href="{{ url_for('register') }}">Registrar</a></p>
+    {% endif %}
     
 </body>
 </html>
