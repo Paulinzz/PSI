@@ -1,44 +1,60 @@
 {% extends "base.html" %}
 
-{% block title %}Registrar - Minha App{% endblock %}
+{% block title %}Registrar {% endblock %}
 
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-md-6">
         <div class="card shadow">
             <div class="card-header bg-success text-white">
-                <h4 class="mb-0">📝 Criar Nova Conta</h4>
+                <h4 class="mb-0">
+                    <i class="bi bi-pencil-square"></i> Criar Nova Conta
+                </h4>
             </div>
             <div class="card-body">
-                <form method="POST" action="{{ url_for('auth.register') }}" id="registerForm">
+                <form method="POST" action="{{ url_for('auth.register') }}">
                     <div class="mb-3">
-                        <label for="username" class="form-label">Nome de Usuário</label>
+                        <label for="username" class="form-label">
+                            <i class="bi bi-person"></i> Nome de Usuário
+                        </label>
                         <input type="text" class="form-control" id="username" name="username" 
                                required autofocus placeholder="Escolha um nome de usuário">
-                        <div class="form-text">Mínimo 3 caracteres. Letras, números e underscores.</div>
+                        <div class="form-text">
+                            <i class="bi bi-info-circle"></i> Mínimo 3 caracteres. Letras, números e underscores.
+                        </div>
                     </div>
                     
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
+                        <label for="email" class="form-label">
+                            <i class="bi bi-envelope"></i> Email
+                        </label>
                         <input type="email" class="form-control" id="email" name="email" 
                                required placeholder="seu@email.com">
                     </div>
                     
                     <div class="mb-3">
-                        <label for="password" class="form-label">Senha</label>
+                        <label for="password" class="form-label">
+                            <i class="bi bi-key"></i> Senha
+                        </label>
                         <input type="password" class="form-control" id="password" name="password" 
                                required placeholder="Crie uma senha segura">
-                        <div class="form-text">Mínimo 6 caracteres.</div>
+                        <div class="form-text">
+                            <i class="bi bi-info-circle"></i> Mínimo 6 caracteres.
+                        </div>
                     </div>
 
                     <div class="mb-3">
-                        <label for="confirm_password" class="form-label">Confirmar Senha</label>
+                        <label for="confirm_password" class="form-label">
+                            <i class="bi bi-key-fill"></i> Confirmar Senha
+                        </label>
                         <input type="password" class="form-control" id="confirm_password" 
                                name="confirm_password" required placeholder="Digite a senha novamente">
                     </div>
                     
                     <div class="d-grid">
-                        <button type="submit" class="btn btn-success btn-lg">Criar Conta</button>
+                        <button type="submit" class="btn btn-success btn-lg">
+                            <i class="bi bi-check-circle"></i> Criar Conta
+                        </button>
                     </div>
                 </form>
                 
@@ -47,35 +63,23 @@
                 <div class="text-center">
                     <p class="mb-0">Já tem uma conta?</p>
                     <a href="{{ url_for('auth.login') }}" class="btn btn-outline-success mt-2">
-                        Fazer Login
+                        <i class="bi bi-box-arrow-in-right"></i> Fazer Login
                     </a>
                 </div>
             </div>
         </div>
     </div>
 </div>
-{% endblock %}
 
-{% block scripts %}
 <script>
-// Validação de senha no cliente
-document.getElementById('registerForm').addEventListener('submit', function(e) {
+document.querySelector('form').addEventListener('submit', function(e) {
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirm_password').value;
     
     if (password !== confirmPassword) {
         e.preventDefault();
         alert('As senhas não coincidem!');
-        return false;
     }
-    
-    if (password.length < 6) {
-        e.preventDefault();
-        alert('A senha deve ter pelo menos 6 caracteres!');
-        return false;
-    }
-    
-    return true;
 });
 </script>
 {% endblock %}

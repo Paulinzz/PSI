@@ -1,46 +1,62 @@
 {% extends "base.html" %}
 
-{% block title %}Editar Produto - Minha App{% endblock %}
+{% block title %}Editar Produto {% endblock %}
 
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-md-8">
         <div class="card shadow">
             <div class="card-header bg-warning text-white">
-                <h4 class="mb-0">✏️ Editar Produto</h4>
+                <h4 class="mb-0">
+                    <i class="bi bi-pencil"></i> Editar Produto
+                </h4>
             </div>
             <div class="card-body">
                 <form method="POST" action="{{ url_for('products.edit_product', product_id=product.id) }}">
                     <div class="mb-3">
-                        <label for="name" class="form-label">Nome do Produto *</label>
+                        <label for="name" class="form-label">
+                            <i class="bi bi-tag"></i> Nome do Produto *
+                        </label>
                         <input type="text" class="form-control" id="name" name="name" 
                                value="{{ product.name }}" required>
                     </div>
                     
                     <div class="mb-3">
-                        <label for="description" class="form-label">Descrição</label>
+                        <label for="description" class="form-label">
+                            <i class="bi bi-text-paragraph"></i> Descrição
+                        </label>
                         <textarea class="form-control" id="description" name="description" 
                                   rows="4">{{ product.description or '' }}</textarea>
                     </div>
                     
                     <div class="mb-3">
-                        <label for="price" class="form-label">Preço *</label>
+                        <label for="price" class="form-label">
+                            <i class="bi bi-currency-dollar"></i> Preço *
+                        </label>
                         <div class="input-group">
-                            <span class="input-group-text">R$</span>
+                            <span class="input-group-text">
+                                <i class="bi bi-cash"></i> R$
+                            </span>
                             <input type="number" class="form-control" id="price" name="price" 
-                                   step="0.01" min="0.01" value="{{ '%.2f' | format(product.price) }}" required>
+                                   step="0.01" min="0.01" value="{{ "%.2f"|format(product.price) }}" required>
                         </div>
                     </div>
                     
                     <div class="card bg-light mb-4">
                         <div class="card-body">
-                            <h6>📋 Informações do Produto</h6>
-                            <div class="row">
+                            <h6>
+                                <i class="bi bi-clipboard-data"></i> Informações do Produto
+                            </h6>
+                            <div class="row mt-3">
                                 <div class="col-md-6">
-                                    <small><strong>ID:</strong> {{ product.id }}</small>
+                                    <small>
+                                        <i class="bi bi-hash"></i> <strong>ID:</strong> {{ product.id }}
+                                    </small>
                                 </div>
                                 <div class="col-md-6">
-                                    <small><strong>Criado em:</strong> {{ product.created_at.strftime('%d/%m/%Y às %H:%M') }}</small>
+                                    <small>
+                                        <i class="bi bi-calendar-event"></i> <strong>Criado em:</strong> {{ product.created_at.strftime('%d/%m/%Y às %H:%M') }}
+                                    </small>
                                 </div>
                             </div>
                         </div>
@@ -48,10 +64,10 @@
                     
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <a href="{{ url_for('products.list_products') }}" class="btn btn-secondary me-md-2">
-                            ↩️ Cancelar
+                            <i class="bi bi-arrow-left"></i> Cancelar
                         </a>
-                        <button type="submit" class="btn btn-warning btn-lg">
-                            💾 Atualizar Produto
+                        <button type="submit" class="btn btn-warning btn-lg text-white">
+                            <i class="bi bi-save"></i> Atualizar Produto
                         </button>
                     </div>
                 </form>

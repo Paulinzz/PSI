@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 
-{% block title %}Meus Produtos - Minha App{% endblock %}
+{% block title %}Meus Produtos {% endblock %}
 
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1>📦 Meus Produtos</h1>
+    <h1>
+        <i class="bi bi-box-seam"></i> Meus Produtos
+    </h1>
     <a href="{{ url_for('products.create_product') }}" class="btn btn-primary btn-lg">
-        ➕ Novo Produto
+        <i class="bi bi-plus-circle"></i> Novo Produto
     </a>
 </div>
 
@@ -14,16 +16,20 @@
 <div class="row">
     {% for product in products %}
     <div class="col-md-6 col-lg-4 mb-4">
-        <div class="card h-100 shadow-sm">
+        <div class="card h-100 shadow-sm product-card">
             <div class="card-body">
-                <h5 class="card-title">{{ product.name }}</h5>
+                <h5 class="card-title">
+                    <i class="bi bi-tag"></i> {{ product.name }}
+                </h5>
                 <p class="card-text text-muted">
                     {{ product.description or "Sem descrição" }}
                 </p>
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <span class="h4 text-success">R$ {{ "%.2f" | format(product.price) }}</span>
+                    <span class="h4 text-success mb-0">
+                        <i class="bi bi-currency-dollar"></i> {{ "%.2f"|format(product.price) }}
+                    </span>
                     <small class="text-muted">
-                        {{ product.created_at.strftime('%d/%m/%Y') }}
+                        <i class="bi bi-calendar"></i> {{ product.created_at.strftime('%d/%m/%Y') }}
                     </small>
                 </div>
             </div>
@@ -31,14 +37,14 @@
                 <div class="d-flex gap-2">
                     <a href="{{ url_for('products.edit_product', product_id=product.id) }}" 
                        class="btn btn-outline-primary btn-sm flex-fill">
-                        ✏️ Editar
+                        <i class="bi bi-pencil"></i> Editar
                     </a>
                     <form method="POST" 
                           action="{{ url_for('products.delete_product', product_id=product.id) }}"
                           class="flex-fill"
                           onsubmit="return confirm('Tem certeza que deseja excluir o produto \"{{ product.name }}\"?')">
                         <button type="submit" class="btn btn-outline-danger btn-sm w-100">
-                            🗑️ Excluir
+                            <i class="bi bi-trash"></i> Excluir
                         </button>
                     </form>
                 </div>
@@ -51,32 +57,37 @@
 <!-- Estatísticas -->
 <div class="row mt-4">
     <div class="col-12">
-        <div class="card">
+        <div class="card shadow">
             <div class="card-body">
-                <h5>📊 Resumo</h5>
-                <div class="row text-center">
-                    <div class="col-md-4">
-                        <div class="p-3 border rounded bg-light">
-                            <h3 class="text-primary">{{ products | length }}</h3>
-                            <p class="mb-0">Total de Produtos</p>
+                <h5>
+                    <i class="bi bi-bar-chart"></i> Resumo
+                </h5>
+                <div class="row text-center mt-4">
+                    <div class="col-md-4 mb-3">
+                        <div class="p-4 border rounded bg-light">
+                            <i class="bi bi-boxes display-4 text-primary"></i>
+                            <h3 class="text-primary mt-3">{{ products|length }}</h3>
+                            <p class="mb-0 text-muted">Total de Produtos</p>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="p-3 border rounded bg-light">
-                            {% set total_value = products | sum(attribute='price') %}
-                            <h3 class="text-success">R$ {{ "%.2f" | format(total_value) }}</h3>
-                            <p class="mb-0">Valor Total</p>
+                    <div class="col-md-4 mb-3">
+                        <div class="p-4 border rounded bg-light">
+                            <i class="bi bi-cash-stack display-4 text-success"></i>
+                            {% set total_value = products|sum(attribute='price') %}
+                            <h3 class="text-success mt-3">R$ {{ "%.2f"|format(total_value) }}</h3>
+                            <p class="mb-0 text-muted">Valor Total</p>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="p-3 border rounded bg-light">
+                    <div class="col-md-4 mb-3">
+                        <div class="p-4 border rounded bg-light">
+                            <i class="bi bi-star display-4 text-warning"></i>
                             {% if products %}
-                            {% set max_price = products | map(attribute='price') | max %}
-                            <h3 class="text-warning">R$ {{ "%.2f" | format(max_price) }}</h3>
+                                {% set most_expensive = products|max(attribute='price') %}
+                                <h3 class="text-warning mt-3">R$ {{ "%.2f"|format(most_expensive.price) }}</h3>
                             {% else %}
-                            <h3 class="text-warning">R$ 0.00</h3>
+                                <h3 class="text-warning mt-3">R$ 0.00</h3>
                             {% endif %}
-                            <p class="mb-0">Produto Mais Caro</p>
+                            <p class="mb-0 text-muted">Produto Mais Caro</p>
                         </div>
                     </div>
                 </div>
@@ -89,10 +100,11 @@
 <div class="text-center py-5">
     <div class="card shadow">
         <div class="card-body py-5">
-            <h3 class="text-muted">📭 Nenhum produto cadastrado</h3>
+            <i class="bi bi-inbox display-1 text-muted"></i>
+            <h3 class="text-muted mt-4">Nenhum produto cadastrado</h3>
             <p class="text-muted mb-4">Comece adicionando seu primeiro produto à sua loja!</p>
             <a href="{{ url_for('products.create_product') }}" class="btn btn-primary btn-lg">
-                ➕ Criar Primeiro Produto
+                <i class="bi bi-plus-circle"></i> Criar Primeiro Produto
             </a>
         </div>
     </div>

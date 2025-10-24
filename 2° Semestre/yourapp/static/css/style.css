@@ -35,6 +35,71 @@ main {
     border-radius: 10px;
 }
 
+/* Estilos para ícones Bootstrap Icons */
+.bi {
+    vertical-align: middle;
+}
+
+/* Ícones maiores em cards */
+.display-1.bi,
+.display-2.bi,
+.display-3.bi,
+.display-4.bi {
+    line-height: 1;
+}
+
+/* Espaçamento dos ícones nos botões */
+.btn .bi {
+    margin-right: 5px;
+}
+
+.btn .bi:last-child {
+    margin-right: 0;
+    margin-left: 5px;
+}
+
+/* Ícones em labels */
+label .bi {
+    margin-right: 5px;
+    color: #6c757d;
+}
+
+/* Ícones em navegação */
+.nav-link .bi {
+    margin-right: 5px;
+    font-size: 1.1em;
+}
+
+/* Ícones em títulos */
+h1 .bi, h2 .bi, h3 .bi, h4 .bi, h5 .bi {
+    margin-right: 8px;
+}
+
+/* Card headers com ícones */
+.card-header .bi {
+    margin-right: 8px;
+}
+
+/* Ícones em badges */
+.badge .bi {
+    margin-right: 3px;
+}
+
+/* Animação para ícones grandes */
+.display-1.bi,
+.display-2.bi,
+.display-3.bi,
+.display-4.bi {
+    transition: transform 0.3s ease;
+}
+
+.card:hover .display-1.bi,
+.card:hover .display-2.bi,
+.card:hover .display-3.bi,
+.card:hover .display-4.bi {
+    transform: scale(1.1);
+}
+
 /* Animações */
 .fade-in {
     animation: fadeIn 0.5s ease-in;
@@ -54,6 +119,34 @@ main {
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
+/* Ícones coloridos nos inputs */
+.input-group-text .bi {
+    font-size: 1.2em;
+}
+
+/* Hover effects para ícones interativos */
+.btn:hover .bi {
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
+}
+
+/* Ícones em alertas */
+.alert .bi {
+    margin-right: 8px;
+    font-size: 1.2em;
+}
+
+/* Estilos para ícones de estatísticas */
+.text-center .bi {
+    display: block;
+    margin: 0 auto 10px;
+}
+
+/* Form text com ícones */
+.form-text .bi {
+    font-size: 0.9em;
+}
+
 /* Responsividade */
 @media (max-width: 768px) {
     .card {
@@ -64,4 +157,55 @@ main {
         padding: 0.5rem 1rem;
         font-size: 1rem;
     }
+    
+    .display-1.bi,
+    .display-2.bi,
+    .display-3.bi,
+    .display-4.bi {
+        font-size: 3rem !important;
+    }
+    
+    .nav-link .bi {
+        margin-right: 3px;
+        font-size: 1em;
+    }
+}
+
+/* Estilos adicionais para melhor aparência */
+.list-group-item .bi {
+    margin-right: 8px;
+    color: #6c757d;
+}
+
+.table th .bi {
+    margin-right: 5px;
+    color: #495057;
+}
+
+/* Hero section */
+.hero-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section .bi {
+    transition: all 0.3s ease;
+}
+
+/* Animação de pulso para ícones importantes */
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.navbar-brand .bi {
+    animation: pulse 2s infinite;
+}
+
+/* Sombra suave em ícones grandes */
+.display-1.bi,
+.display-2.bi,
+.display-3.bi,
+.display-4.bi {
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
 }

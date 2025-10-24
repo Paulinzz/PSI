@@ -3,7 +3,9 @@
 {% block content %}
 <div class="hero-section text-center py-5 mb-5 bg-light rounded">
     <div class="container">
-        <h1 class="display-4 fw-bold text-primary mb-4">🛍️ Bem-vindo à Minha Loja</h1>
+        <h1 class="display-4 fw-bold text-primary mb-4">
+            <i class="bi bi-shop-window"></i> Bem-vindo à Casa do Caico!
+        </h1>
         <p class="lead mb-4">Sistema completo de gerenciamento de produtos com Flask</p>
         
         {% if current_user.is_authenticated %}
@@ -11,8 +13,8 @@
                 <div class="col-md-4 mb-4">
                     <div class="card border-0 shadow">
                         <div class="card-body">
-                            <h3>📦</h3>
-                            <h5>Meus Produtos</h5>
+                            <i class="bi bi-box-seam display-1 text-primary"></i>
+                            <h5 class="mt-3">Meus Produtos</h5>
                             <p>Gerencie seu catálogo de produtos</p>
                             <a href="{{ url_for('products.list_products') }}" class="btn btn-primary">
                                 Ver Produtos
@@ -23,8 +25,8 @@
                 <div class="col-md-4 mb-4">
                     <div class="card border-0 shadow">
                         <div class="card-body">
-                            <h3>➕</h3>
-                            <h5>Novo Produto</h5>
+                            <i class="bi bi-plus-circle display-1 text-success"></i>
+                            <h5 class="mt-3">Novo Produto</h5>
                             <p>Adicione novos itens ao catálogo</p>
                             <a href="{{ url_for('products.create_product') }}" class="btn btn-success">
                                 Criar Produto
@@ -35,8 +37,8 @@
                 <div class="col-md-4 mb-4">
                     <div class="card border-0 shadow">
                         <div class="card-body">
-                            <h3>👤</h3>
-                            <h5>Meu Perfil</h5>
+                            <i class="bi bi-person-circle display-1 text-info"></i>
+                            <h5 class="mt-3">Meu Perfil</h5>
                             <p>Visualize suas informações</p>
                             <a href="{{ url_for('users.profile') }}" class="btn btn-info">
                                 Ver Perfil
@@ -54,10 +56,10 @@
                             <p class="mb-4">Faça login ou crie uma conta para gerenciar seus produtos.</p>
                             <div class="d-grid gap-3">
                                 <a href="{{ url_for('auth.login') }}" class="btn btn-primary btn-lg">
-                                    🔐 Fazer Login
+                                    <i class="bi bi-lock"></i> Fazer Login
                                 </a>
                                 <a href="{{ url_for('auth.register') }}" class="btn btn-outline-primary btn-lg">
-                                    📝 Criar Conta
+                                    <i class="bi bi-pencil-square"></i> Criar Conta
                                 </a>
                             </div>
                         </div>
@@ -71,23 +73,23 @@
 <div class="container">
     <div class="row text-center">
         <div class="col-md-3">
-            <h3>🚀</h3>
-            <h5>Rápido</h5>
+            <i class="bi bi-rocket-takeoff display-3 text-primary"></i>
+            <h5 class="mt-2">Rápido</h5>
             <p class="text-muted">Interface otimizada e responsiva</p>
         </div>
         <div class="col-md-3">
-            <h3>🔒</h3>
-            <h5>Seguro</h5>
+            <i class="bi bi-shield-check display-3 text-success"></i>
+            <h5 class="mt-2">Seguro</h5>
             <p class="text-muted">Autenticação e proteção de dados</p>
         </div>
         <div class="col-md-3">
-            <h3>💾</h3>
-            <h5>Confiavel</h5>
+            <i class="bi bi-database-check display-3 text-info"></i>
+            <h5 class="mt-2">Confiável</h5>
             <p class="text-muted">Dados armazenados com segurança</p>
         </div>
         <div class="col-md-3">
-            <h3>📱</h3>
-            <h5>Mobile</h5>
+            <i class="bi bi-phone display-3 text-warning"></i>
+            <h5 class="mt-2">Mobile</h5>
             <p class="text-muted">Totalmente responsivo</p>
         </div>
     </div>

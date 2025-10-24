@@ -1,36 +1,40 @@
 {% extends "base.html" %}
 
-{% block title %}Meu Perfil - Minha App{% endblock %}
+{% block title %}Meu Perfil {% endblock %}
 
 {% block content %}
 <div class="row">
     <div class="col-md-8 mx-auto">
         <div class="card shadow">
             <div class="card-header bg-info text-white">
-                <h4 class="mb-0">👤 Meu Perfil</h4>
+                <h4 class="mb-0">
+                    <i class="bi bi-person-circle"></i> Meu Perfil
+                </h4>
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
-                        <h5>Informações Pessoais</h5>
+                        <h5>
+                            <i class="bi bi-info-circle"></i> Informações Pessoais
+                        </h5>
                         <table class="table table-borderless">
                             <tr>
-                                <th>Usuário:</th>
+                                <th><i class="bi bi-person"></i> Usuário:</th>
                                 <td>{{ user.username }}</td>
                             </tr>
                             <tr>
-                                <th>Email:</th>
+                                <th><i class="bi bi-envelope"></i> Email:</th>
                                 <td>{{ user.email }}</td>
                             </tr>
                             <tr>
-                                <th>Membro desde:</th>
+                                <th><i class="bi bi-calendar-check"></i> Membro desde:</th>
                                 <td>{{ user.created_at.strftime('%d/%m/%Y') }}</td>
                             </tr>
                             <tr>
-                                <th>Produtos:</th>
+                                <th><i class="bi bi-box-seam"></i> Produtos:</th>
                                 <td>
                                     <span class="badge bg-primary">
-                                        {{ user.products | length }} produtos
+                                        {{ user.products|length }} produtos
                                     </span>
                                 </td>
                             </tr>
@@ -38,27 +42,33 @@
                     </div>
                     
                     <div class="col-md-6">
-                        <h5>Estatísticas</h5>
+                        <h5>
+                            <i class="bi bi-graph-up"></i> Estatísticas
+                        </h5>
                         <div class="list-group">
                             <div class="list-group-item d-flex justify-content-between">
-                                <span>Total de Produtos:</span>
+                                <span>
+                                    <i class="bi bi-boxes"></i> Total de Produtos:
+                                </span>
                                 <span class="badge bg-primary rounded-pill">
-                                    {{ user.products | length }}
+                                    {{ user.products|length }}
                                 </span>
                             </div>
                             {% if user.products %}
-                            {% set max_price = user.products | map(attribute='price') | max %}
-                            {% set total_price = user.products | sum(attribute='price') %}
                             <div class="list-group-item d-flex justify-content-between">
-                                <span>Produto Mais Caro:</span>
+                                <span>
+                                    <i class="bi bi-star"></i> Produto Mais Caro:
+                                </span>
                                 <span class="badge bg-success rounded-pill">
-                                    R$ {{ "%.2f" | format(max_price) }}
+                                    R$ {{ user.products|map(attribute='price')|max|float|round(2) }}
                                 </span>
                             </div>
                             <div class="list-group-item d-flex justify-content-between">
-                                <span>Valor Total:</span>
+                                <span>
+                                    <i class="bi bi-cash-stack"></i> Valor Total:
+                                </span>
                                 <span class="badge bg-warning rounded-pill">
-                                    R$ {{ "%.2f" | format(total_price) }}
+                                    R$ {{ user.products|sum(attribute='price')|float|round(2) }}
                                 </span>
                             </div>
                             {% endif %}
@@ -68,10 +78,10 @@
                 
                 <div class="mt-4">
                     <a href="{{ url_for('products.list_products') }}" class="btn btn-primary">
-                        📦 Ver Meus Produtos
+                        <i class="bi bi-box-seam"></i> Ver Meus Produtos
                     </a>
                     <a href="{{ url_for('products.create_product') }}" class="btn btn-success">
-                        ➕ Adicionar Produto
+                        <i class="bi bi-plus-circle"></i> Adicionar Produto
                     </a>
                 </div>
             </div>
