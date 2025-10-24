@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Meu Perfil - Minha App{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card shadow">
+            <div class="card-header bg-info text-white">
+                <h4 class="mb-0">👤 Meu Perfil</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Informações Pessoais</h5>
+                        <table class="table table-borderless">
+                            <tr>
+                                <th>Usuário:</th>
+                                <td>{{ user.username }}</td>
+                            </tr>
+                            <tr>
+                                <th>Email:</th>
+                                <td>{{ user.email }}</td>
+                            </tr>
+                            <tr>
+                                <th>Membro desde:</th>
+                                <td>{{ user.created_at.strftime('%d/%m/%Y') }}</td>
+                            </tr>
+                            <tr>
+                                <th>Produtos:</th>
+                                <td>
+                                    <span class="badge bg-primary">
+                                        {{ user.products|length }} produtos
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <h5>Estatísticas</h5>
+                        <div class="list-group">
+                            <div class="list-group-item d-flex justify-content-between">
+                                <span>Total de Produtos:</span>
+                                <span class="badge bg-primary rounded-pill">
+                                    {{ user.products|length }}
+                                </span>
+                            </div>
+                            {% if user.products %}
+                            <div class="list-group-item d-flex justify-content-between">
+                                <span>Produto Mais Caro:</span>
+                                <span class="badge bg-success rounded-pill">
+                                    R$ {{ user.products|map(attribute='price')|max|float|round(2) }}
+                                </span>
+                            </div>
+                            <div class="list-group-item d-flex justify-content-between">
+                                <span>Valor Total:</span>
+                                <span class="badge bg-warning rounded-pill">
+                                    R$ {{ user.products|sum(attribute='price')|float|round(2) }}
+                                </span>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <a href="{{ url_for('products.list_products') }}" class="btn btn-primary">
+                        📦 Ver Meus Produtos
+                    </a>
+                    <a href="{{ url_for('products.create_product') }}" class="btn btn-success">
+                        ➕ Adicionar Produto
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Novo Produto - Minha App{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0">➕ Adicionar Novo Produto</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('products.create_product') }}">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nome do Produto *</label>
+                        <input type="text" class="form-control" id="name" name="name" 
+                               required placeholder="Ex: Notebook Dell Inspiron">
+                        <div class="form-text">Nome descritivo do produto.</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Descrição</label>
+                        <textarea class="form-control" id="description" name="description" 
+                                  rows="4" placeholder="Descreva as características do produto..."></textarea>
+                        <div class="form-text">Informações detalhadas sobre o produto.</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Preço *</label>
+                        <div class="input-group">
+                            <span class="input-group-text">R$</span>
+                            <input type="number" class="form-control" id="price" name="price" 
+                                   step="0.01" min="0.01" required placeholder="0,00">
+                        </div>
+                        <div class="form-text">Preço do produto em reais.</div>
+                    </div>
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{{ url_for('products.list_products') }}" class="btn btn-secondary me-md-2">
+                            ↩️ Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-success btn-lg">
+                            💾 Salvar Produto
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
