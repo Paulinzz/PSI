@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Página Não Encontrada - Minha App{% endblock %}
+
+{% block content %}
+<div class="text-center py-5">
+    <div class="card shadow">
+        <div class="card-body py-5">
+            <h1 class="display-1 text-muted">404</h1>
+            <h3 class="text-muted mb-4">Página não encontrada</h3>
+            <p class="text-muted mb-4">A página que você está procurando não existe.</p>
+            <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg">
+                🏠 Voltar para Home
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

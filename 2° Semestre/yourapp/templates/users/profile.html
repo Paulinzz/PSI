@@ -30,7 +30,7 @@
                                 <th>Produtos:</th>
                                 <td>
                                     <span class="badge bg-primary">
-                                        {{ user.products|length }} produtos
+                                        {{ user.products | length }} produtos
                                     </span>
                                 </td>
                             </tr>
@@ -43,20 +43,22 @@
                             <div class="list-group-item d-flex justify-content-between">
                                 <span>Total de Produtos:</span>
                                 <span class="badge bg-primary rounded-pill">
-                                    {{ user.products|length }}
+                                    {{ user.products | length }}
                                 </span>
                             </div>
                             {% if user.products %}
+                            {% set max_price = user.products | map(attribute='price') | max %}
+                            {% set total_price = user.products | sum(attribute='price') %}
                             <div class="list-group-item d-flex justify-content-between">
                                 <span>Produto Mais Caro:</span>
                                 <span class="badge bg-success rounded-pill">
-                                    R$ {{ user.products|map(attribute='price')|max|float|round(2) }}
+                                    R$ {{ "%.2f" | format(max_price) }}
                                 </span>
                             </div>
                             <div class="list-group-item d-flex justify-content-between">
                                 <span>Valor Total:</span>
                                 <span class="badge bg-warning rounded-pill">
-                                    R$ {{ user.products|sum(attribute='price')|float|round(2) }}
+                                    R$ {{ "%.2f" | format(total_price) }}
                                 </span>
                             </div>
                             {% endif %}

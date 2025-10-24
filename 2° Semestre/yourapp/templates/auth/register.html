@@ -10,7 +10,7 @@
                 <h4 class="mb-0">📝 Criar Nova Conta</h4>
             </div>
             <div class="card-body">
-                <form method="POST" action="{{ url_for('auth.register') }}">
+                <form method="POST" action="{{ url_for('auth.register') }}" id="registerForm">
                     <div class="mb-3">
                         <label for="username" class="form-label">Nome de Usuário</label>
                         <input type="text" class="form-control" id="username" name="username" 
@@ -54,16 +54,28 @@
         </div>
     </div>
 </div>
+{% endblock %}
 
+{% block scripts %}
 <script>
-document.querySelector('form').addEventListener('submit', function(e) {
+// Validação de senha no cliente
+document.getElementById('registerForm').addEventListener('submit', function(e) {
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirm_password').value;
     
     if (password !== confirmPassword) {
         e.preventDefault();
         alert('As senhas não coincidem!');
+        return false;
     }
+    
+    if (password.length < 6) {
+        e.preventDefault();
+        alert('A senha deve ter pelo menos 6 caracteres!');
+        return false;
+    }
+    
+    return true;
 });
 </script>
 {% endblock %}

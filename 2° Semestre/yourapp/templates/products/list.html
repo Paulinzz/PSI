@@ -21,7 +21,7 @@
                     {{ product.description or "Sem descrição" }}
                 </p>
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <span class="h4 text-success">R$ {{ "%.2f"|format(product.price) }}</span>
+                    <span class="h4 text-success">R$ {{ "%.2f" | format(product.price) }}</span>
                     <small class="text-muted">
                         {{ product.created_at.strftime('%d/%m/%Y') }}
                     </small>
@@ -57,19 +57,25 @@
                 <div class="row text-center">
                     <div class="col-md-4">
                         <div class="p-3 border rounded bg-light">
-                            <h3 class="text-primary">{{ products|length }}</h3>
+                            <h3 class="text-primary">{{ products | length }}</h3>
                             <p class="mb-0">Total de Produtos</p>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="p-3 border rounded bg-light">
-                            <h3 class="text-success">R$ {{ "%.2f"|format(products|sum(attribute='price')) }}</h3>
+                            {% set total_value = products | sum(attribute='price') %}
+                            <h3 class="text-success">R$ {{ "%.2f" | format(total_value) }}</h3>
                             <p class="mb-0">Valor Total</p>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="p-3 border rounded bg-light">
-                            <h3 class="text-warning">R$ {{ "%.2f"|format(products|max(attribute='price').price) if products else '0.00' }}</h3>
+                            {% if products %}
+                            {% set max_price = products | map(attribute='price') | max %}
+                            <h3 class="text-warning">R$ {{ "%.2f" | format(max_price) }}</h3>
+                            {% else %}
+                            <h3 class="text-warning">R$ 0.00</h3>
+                            {% endif %}
                             <p class="mb-0">Produto Mais Caro</p>
                         </div>
                     </div>
