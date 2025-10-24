@@ -1,4 +1,3 @@
-/* Estilos personalizados */
 body {
     background-color: #f8f9fa;
     min-height: 100vh;
@@ -35,12 +34,10 @@ main {
     border-radius: 10px;
 }
 
-/* Estilos para ícones Bootstrap Icons */
 .bi {
     vertical-align: middle;
 }
 
-/* Ícones maiores em cards */
 .display-1.bi,
 .display-2.bi,
 .display-3.bi,
@@ -48,7 +45,6 @@ main {
     line-height: 1;
 }
 
-/* Espaçamento dos ícones nos botões */
 .btn .bi {
     margin-right: 5px;
 }
@@ -58,34 +54,28 @@ main {
     margin-left: 5px;
 }
 
-/* Ícones em labels */
 label .bi {
     margin-right: 5px;
     color: #6c757d;
 }
 
-/* Ícones em navegação */
 .nav-link .bi {
     margin-right: 5px;
     font-size: 1.1em;
 }
 
-/* Ícones em títulos */
 h1 .bi, h2 .bi, h3 .bi, h4 .bi, h5 .bi {
     margin-right: 8px;
 }
 
-/* Card headers com ícones */
 .card-header .bi {
     margin-right: 8px;
 }
 
-/* Ícones em badges */
 .badge .bi {
     margin-right: 3px;
 }
 
-/* Animação para ícones grandes */
 .display-1.bi,
 .display-2.bi,
 .display-3.bi,
@@ -100,7 +90,6 @@ h1 .bi, h2 .bi, h3 .bi, h4 .bi, h5 .bi {
     transform: scale(1.1);
 }
 
-/* Animações */
 .fade-in {
     animation: fadeIn 0.5s ease-in;
 }
@@ -110,7 +99,6 @@ h1 .bi, h2 .bi, h3 .bi, h4 .bi, h5 .bi {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Cards de produtos */
 .product-card {
     transition: all 0.3s ease;
 }
@@ -119,35 +107,29 @@ h1 .bi, h2 .bi, h3 .bi, h4 .bi, h5 .bi {
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
-/* Ícones coloridos nos inputs */
 .input-group-text .bi {
     font-size: 1.2em;
 }
 
-/* Hover effects para ícones interativos */
 .btn:hover .bi {
     transform: scale(1.1);
     transition: transform 0.2s ease;
 }
 
-/* Ícones em alertas */
 .alert .bi {
     margin-right: 8px;
     font-size: 1.2em;
 }
 
-/* Estilos para ícones de estatísticas */
 .text-center .bi {
     display: block;
     margin: 0 auto 10px;
 }
 
-/* Form text com ícones */
 .form-text .bi {
     font-size: 0.9em;
 }
 
-/* Responsividade */
 @media (max-width: 768px) {
     .card {
         margin-bottom: 1rem;
@@ -171,7 +153,6 @@ h1 .bi, h2 .bi, h3 .bi, h4 .bi, h5 .bi {
     }
 }
 
-/* Estilos adicionais para melhor aparência */
 .list-group-item .bi {
     margin-right: 8px;
     color: #6c757d;
@@ -182,7 +163,6 @@ h1 .bi, h2 .bi, h3 .bi, h4 .bi, h5 .bi {
     color: #495057;
 }
 
-/* Hero section */
 .hero-section {
     position: relative;
     overflow: hidden;
@@ -192,7 +172,6 @@ h1 .bi, h2 .bi, h3 .bi, h4 .bi, h5 .bi {
     transition: all 0.3s ease;
 }
 
-/* Animação de pulso para ícones importantes */
 @keyframes pulse {
     0%, 100% { transform: scale(1); }
     50% { transform: scale(1.05); }
@@ -202,7 +181,6 @@ h1 .bi, h2 .bi, h3 .bi, h4 .bi, h5 .bi {
     animation: pulse 2s infinite;
 }
 
-/* Sombra suave em ícones grandes */
 .display-1.bi,
 .display-2.bi,
 .display-3.bi,

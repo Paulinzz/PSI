@@ -1,7 +1,5 @@
-// Scripts da aplicação
 document.addEventListener('DOMContentLoaded', function() {
     
-    // Auto-dismiss alerts após 5 segundos
     const alerts = document.querySelectorAll('.alert');
     alerts.forEach(alert => {
         setTimeout(() => {
@@ -10,20 +8,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 5000);
     });
     
-    // Validação de formulários
     const forms = document.querySelectorAll('form');
     forms.forEach(form => {
         form.addEventListener('submit', function(e) {
             const submitBtn = this.querySelector('button[type="submit"]');
             if (submitBtn) {
-                // Salva o HTML original
                 const originalHTML = submitBtn.innerHTML;
                 
-                // Desabilita e mostra loading
                 submitBtn.disabled = true;
                 submitBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> Processando...';
                 
-                // Restaura após 3 segundos se houver erro
                 setTimeout(() => {
                     if (submitBtn.disabled) {
                         submitBtn.disabled = false;
@@ -34,7 +28,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Formatação de preços
     const priceInputs = document.querySelectorAll('input[name="price"]');
     priceInputs.forEach(input => {
         input.addEventListener('blur', function() {
@@ -44,7 +37,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Adiciona tooltips do Bootstrap aos ícones
     const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl);
@@ -73,12 +65,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, observerOptions);
     
-    // Observa todos os cards para animação
     document.querySelectorAll('.card').forEach(card => {
         observer.observe(card);
     });
     
-    // Confirmação de exclusão com ícone
     const deleteForms = document.querySelectorAll('form[action*="delete"]');
     deleteForms.forEach(form => {
         form.addEventListener('submit', function(e) {
@@ -91,7 +81,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Adiciona efeito de hover nos ícones grandes
     const largeIcons = document.querySelectorAll('.display-1, .display-2, .display-3, .display-4');
     largeIcons.forEach(icon => {
         if (icon.classList.contains('bi')) {
@@ -107,7 +96,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Contador animado para estatísticas
     const animateCounter = (element, target, duration = 1000) => {
         let current = 0;
         const increment = target / (duration / 16);
@@ -125,7 +113,6 @@ document.addEventListener('DOMContentLoaded', function() {
         updateCounter();
     };
     
-    // Anima contadores de estatísticas
     const statNumbers = document.querySelectorAll('.card-body h3');
     statNumbers.forEach(stat => {
         const text = stat.textContent.trim();
@@ -149,7 +136,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Adiciona feedback visual ao copiar texto
     const copyableElements = document.querySelectorAll('[data-copyable]');
     copyableElements.forEach(element => {
         element.style.cursor = 'pointer';
@@ -161,7 +147,6 @@ document.addEventListener('DOMContentLoaded', function() {
             try {
                 await navigator.clipboard.writeText(text);
                 
-                // Feedback visual
                 const originalHTML = this.innerHTML;
                 this.innerHTML = '<i class="bi bi-check-circle text-success"></i> Copiado!';
                 
@@ -174,14 +159,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Loading overlay para navegação
     const navLinks = document.querySelectorAll('a[href]:not([href^="#"]):not([target="_blank"])');
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
-            // Não aplica em botões de cancelar ou voltar
             if (this.classList.contains('btn-secondary')) return;
             
-            // Cria overlay de loading
             const overlay = document.createElement('div');
             overlay.style.cssText = `
                 position: fixed;
@@ -200,7 +182,6 @@ document.addEventListener('DOMContentLoaded', function() {
             
             document.body.appendChild(overlay);
             
-            // Remove após 3 segundos caso não navegue
             setTimeout(() => {
                 overlay.remove();
             }, 3000);
