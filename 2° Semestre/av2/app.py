@@ -1,4 +1,3 @@
-# app.py (ou routes.py, conforme estrutura do projeto)
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_login import login_required, current_user, login_user, LoginManager, logout_user
 from models import User, Livro, SessionLocal, Base, engine
@@ -35,7 +34,7 @@ def register():
             with session.begin():
                 # Verifica se o usuário já existe
                 if session.query(User).where(User.email == email).first():
-                    flash('Nome de usuário já está em uso.', 'warning')
+                    flash('Email já está em uso.', 'warning')
                     return redirect(url_for('register'))
 
                 # Cria novo usuário
@@ -56,8 +55,7 @@ def login():
         password = request.form['senha'].strip()
 
         with SessionLocal() as session:
-            with session.begin():
-                user = session.query(User).where(User.email == email).first()
+            user = session.query(User).where(User.email == email).first()
 
             if user and check_password_hash(user.password, password):
                 login_user(user)
@@ -73,7 +71,6 @@ def login():
 @app.route('/profile')
 @login_required
 def profile():
-    # Aqui, futuramente, o aluno pode adicionar relacionamento com posts, tarefas etc.
     return render_template('profile.html', user=current_user)
 
 
@@ -83,61 +80,134 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
+
 @app.route('/livros')
 @login_required
 def listar_livros():
-    
     with SessionLocal() as session:
-        with session.begin():
-            user = session.query(User).where(User.email == current_user.email).first()
-            livros = user.livros
-        return render_template('livros.html', livros=livros)
+        # Carrega o usuário com seus livros
+        user = session.query(User).filter(User.id == current_user.id).first()
+        
+        # Cria uma lista de dicionários para passar ao template (evita objetos desanexados)
+        livros_data = []
+        for livro in user.livros:
+            # Lista os emails dos autores
+            autores_emails = [autor.email for autor in livro.autores]
+            livros_data.append({
+                'id': livro.id,
+                'titulo': livro.titulo,
+                'ano': livro.ano,
+                'autores': ', '.join(autores_emails) if autores_emails else 'Sem autores'
+            })
+        
+    return render_template('livros.html', livros=livros_data)
+
 
 @app.route('/livros/novo', methods=['GET', 'POST'])
 @login_required
 def novo_livro():
     if request.method == 'POST':
-        titulo = request.form['titulo']
-        ano = request.form['ano']
+        titulo = request.form['titulo'].strip()
+        ano = request.form['ano'].strip()
+        
+        # Obtém os IDs dos autores selecionados
+        autores_ids = request.form.getlist('autores')
 
         with SessionLocal() as session:
             with session.begin():
-                livro = Livro(titulo=titulo, ano=ano, autor_id=current_user.id)
+                # Cria o novo livro
+                livro = Livro(titulo=titulo, ano=int(ano) if ano else None)
+                
+                # Adiciona os autores selecionados ao livro
+                for autor_id in autores_ids:
+                    autor = session.query(User).filter(User.id == int(autor_id)).first()
+                    if autor:
+                        livro.autores.append(autor)
+                
+                # Se nenhum autor foi selecionado, adiciona o usuário atual
+                if not autores_ids:
+                    user = session.query(User).filter(User.id == current_user.id).first()
+                    livro.autores.append(user)
+                
                 session.add(livro)
-                user = session.query(User).where(User.id == current_user.id).first()
-                user.livros.append(livro)
 
             flash('Livro adicionado com sucesso!', 'success')
             return redirect(url_for('listar_livros'))
-    return render_template('livro_form.html', action='Adicionar')
+    
+    # GET - busca todos os usuários para selecionar como autores
+    with SessionLocal() as session:
+        usuarios = session.query(User).all()
+        usuarios_data = [{'id': u.id, 'email': u.email} for u in usuarios]
+        
+    return render_template('livro_form.html', action='Adicionar', usuarios=usuarios_data)
 
-
-# Atualizar dados básicos de livro
 
 @app.route('/livros/editar/<int:id>', methods=['GET', 'POST'])
 @login_required
 def editar_livro(id):
     with SessionLocal() as session:
-        with session.begin():
-            livro = session.query(Livro).where(Livro.id == id).first()
-            if request.method == 'POST':
-                livro.titulo = request.form['titulo']
-                livro.ano = request.form['ano']
+        livro = session.query(Livro).filter(Livro.id == id).first()
+        
+        if not livro:
+            flash('Livro não encontrado.', 'danger')
+            return redirect(url_for('listar_livros'))
+        
+        if request.method == 'POST':
+            with session.begin():
+                # Atualiza dados básicos do livro
+                livro.titulo = request.form['titulo'].strip()
+                ano_form = request.form['ano'].strip()
+                livro.ano = int(ano_form) if ano_form else None
+                
+                # Atualiza os autores
+                autores_ids = request.form.getlist('autores')
+                
+                # Limpa os autores atuais
+                livro.autores.clear()
+                
+                # Adiciona os novos autores
+                for autor_id in autores_ids:
+                    autor = session.query(User).filter(User.id == int(autor_id)).first()
+                    if autor:
+                        livro.autores.append(autor)
+                
                 session.add(livro)
-                flash('Livro atualizado com sucesso!', 'success')
-                return redirect(url_for('listar_livros'))
-        return render_template('livro_form.html', action='Editar', livro=livro)
+            
+            flash('Livro atualizado com sucesso!', 'success')
+            return redirect(url_for('listar_livros'))
+        
+        # GET - prepara dados para o formulário
+        livro_data = {
+            'id': livro.id,
+            'titulo': livro.titulo,
+            'ano': livro.ano,
+            'autores_ids': [autor.id for autor in livro.autores]
+        }
+        
+        # Busca todos os usuários
+        usuarios = session.query(User).all()
+        usuarios_data = [{'id': u.id, 'email': u.email} for u in usuarios]
+        
+        return render_template('livro_form.html', 
+                             action='Editar', 
+                             livro=livro_data, 
+                             usuarios=usuarios_data)
 
 
 @app.route('/livros/excluir/<int:id>', methods=['POST'])
 @login_required
 def excluir_livro(id):
-    
     with SessionLocal() as session:
         with session.begin():
-            livro = session.query(Livro).where(Livro.id == id).first()
-            session.delete(livro)
-        return redirect(url_for('listar_livros'))
+            livro = session.query(Livro).filter(Livro.id == id).first()
+            
+            if livro:
+                session.delete(livro)
+                flash('Livro excluído com sucesso!', 'success')
+            else:
+                flash('Livro não encontrado.', 'danger')
+    
+    return redirect(url_for('listar_livros'))
 
 
 if __name__ == '__main__':
